@@ -6,23 +6,16 @@ import * as serviceWorker from './serviceWorker';
 
 function Square(props){
     return(
-        <button className="square" onClick={()=>{props.onClick()}}>
+        <button className="square" onClick={props.onClick}>
           {props.value}
         </button>
     )
-  }
+}
   
 class Board extends Component{
-    constructor(props){
-        super(props);
-        this.state={
-            squares:Array(9).fill(null),
-            xIsNext: true,
-        }
-    }
     renderSquare(i){
       return(
-        <Square value={this.state.squares[i]} onClick={()=>this.props.onClick(i)}/>
+        <Square value={this.props.squares[i]} onClick={()=>this.props.onClick(i)}/>
       )
     }
   
@@ -49,7 +42,7 @@ class Board extends Component{
     }
   }
 
-  class Game extends Component{
+class Game extends Component{
       constructor(props){
           super(props);
           this.state={
@@ -69,11 +62,11 @@ class Board extends Component{
         }
         squares[i] = this.state.xIsNext ? 'X' : 'O';
         this.setState({
-        history: history.concat([{
+          history: history.concat([{
             squares: squares
-        }]),
-        stepNumber:history.length,
-        xIsNext:!this.state.xIsNext,
+          }]),
+          stepNumber:history.length,
+          xIsNext:!this.state.xIsNext,
         })
     }
     jumpTo(step){
